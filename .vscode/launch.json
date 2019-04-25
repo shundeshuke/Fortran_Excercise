@@ -1,0 +1,20 @@
+{
+    "version": "0.0.1",
+    "configurations": [
+        
+        {
+            "name": "Fortran Launch (GDB)",
+            "type": "cppdbg",
+            "request": "launch",
+            "targetArchitecture": "x86",
+            "program": "${workspaceRoot}/bin/${fileBasenameNoExtension}",
+            "miDebuggerPath": "gdb",
+            "MIMode": "gdb",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceRoot}/bin",
+            "externalConsole": true,
+            "preLaunchTask": "gfortran"
+        }
+    ]
+}

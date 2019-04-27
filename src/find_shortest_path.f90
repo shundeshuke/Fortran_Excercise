@@ -45,14 +45,14 @@ PROGRAM find_shortest_path
    CHARACTER(len=80) :: error_message
    INTEGER :: file_status
 ! 临时变量
-   INTEGER :: k,i,j,u
+   INTEGER :: i,j,u
    INTEGER :: temp_s,temp_e,temp_p,short_path_pos
  
   ! 从文件中获取无向图的总节点数、线段数，节点名称，线段信息，开始节点名称，结束节点名称等信息
    WRITE (*,*) 'Enter the file name with undirected graph information: '
    READ (*,'(A50)')  undirected_graph_info_filename
 
-   OPEN (UNIT=9, FILE=undirected_graph_info_filename, STATUS='OLD', IOSTAT=status, IOMSG=error_message)
+   OPEN (UNIT=9, FILE=undirected_graph_info_filename, STATUS='OLD', IOSTAT=file_status, IOMSG=error_message)
    IF (file_status/=0) THEN     
       WRITE(*,'(A,A)') 'File open failed: ',error_message
       STOP
@@ -70,20 +70,20 @@ PROGRAM find_shortest_path
    END IF
 
    DO i = 1,point_amount
-         READ(9,'(A)',IOSTAT=status) point_name_array(i)
+         READ(9,'(A)',IOSTAT=file_status) point_name_array(i)
          IF (file_status/=0) THEN     
             STOP 'Read file error.' 
          END IF   
    END DO
 
    DO i = 1,line_amount
-         READ(9,'(A,A,F10.4)',IOSTAT=status) lines_array(i)%start_name,lines_array(i)%end_name,lines_array(i)%length
+         READ(9,'(A,A,F10.4)',IOSTAT=file_status) lines_array(i)%start_name,lines_array(i)%end_name,lines_array(i)%length
          IF (file_status/=0) THEN     
             STOP 'Read file error.' 
          END IF   
    END DO
 
-   READ(9,'(A,A)',IOSTAT=status) start_point_name, end_point_name
+   READ(9,'(A,A)',IOSTAT=file_status) start_point_name, end_point_name
    IF (file_status/=0) THEN     
       STOP 'Read file error.' 
    END IF   
@@ -130,7 +130,7 @@ PROGRAM find_shortest_path
       min_length = MAX_LENGTH
       u = 0
       DO i = 1,point_amount
-         IF (graph_matrix(i,i)==0 .AND short_paths(i)%length < min_length) THEN 
+         IF ((graph_matrix(i,i)==0) .AND. short_paths(i)%length < min_length) THEN 
             u = i
             min_length = short_paths(i)%length 
          END IF

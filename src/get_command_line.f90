@@ -1,16 +1,22 @@
+! ============================================================================
+! Name        : get_commdn_line.f90
+! Author      : Johnny Liang
+! Version     : 0.1
+! Description : Test program on command line functions
+! ============================================================================
+
 PROGRAM get_command_line
-    implicit none
-integer :: i
-character(len=128) :: command
-character(len=80) :: arg
+    IMPLICIT NONE
+    INTEGER  :: i
+    CHARACTER(LEN=128) :: command
+    CHARACTER(LEN=80) :: arg
 
-call get_command_argument(0,command)
+    CALL get_command_argument(0,command)
 
-write (*,'(A,A)') 'Program name is :',trim(command)
+    WRITE (*,'(A,A)') 'Program name is :',TRIM(command)
 
-do i = 1,command_argument_count()
-    call get_command_argument(i,arg)
-    write (*,'(A,I2,A,A)') 'Argument ', i, ' is ',trim(arg)
-end do
-
-end Program get_command_line
+    DO i = 1,command_argument_count()
+        CALL get_command_argument(i,arg)
+        WRITE (*,'(A,I2,A,A)') 'Argument ', i, ' is ',TRIM(arg)
+    END DO
+END PROGRAM get_command_line

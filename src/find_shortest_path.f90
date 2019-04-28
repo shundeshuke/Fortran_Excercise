@@ -181,7 +181,7 @@ PROGRAM find_shortest_path
          temp_p = short_paths(temp_p)%pre
       END DO get_path_loop
       result_path_str = start_point_name // '-->' // TRIM(result_path_str)
-      WRITE(*,'(A)') result_path_str
+      WRITE(*,'(A23,A)') 'The shortest path is: ',result_path_str
    END IF
 
 ! 步骤五：释放已经分配的内存空间
@@ -192,7 +192,7 @@ PROGRAM find_shortest_path
    DEALLOCATE(graph_matrix,STAT=allocate_status)
 
 ! 步骤六：结束程序
-   STOP '本程序正常结束，谢谢您的使用！'
+   WRITE(*,*) '本程序正常结束，谢谢您的使用！'
 
 ! 内部过程函数，若今后有需要可以改为外部过程函数
 CONTAINS
